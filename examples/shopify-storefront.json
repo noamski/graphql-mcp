@@ -1,0 +1,42 @@
+{
+  "name": "Shopify Storefront API Example",
+  "description": "Example configuration for Shopify Storefront API",
+  "configuration": {
+    "endpoint": "https://your-shop.myshopify.com/api/2024-01/graphql.json",
+    "headers": {
+      "X-Shopify-Storefront-Access-Token": "YOUR_STOREFRONT_ACCESS_TOKEN",
+      "Content-Type": "application/json"
+    },
+    "timeout": 30000,
+    "maxDepth": 8,
+    "maxComplexity": 150,
+    "disabledResolvers": [
+      "customerAccessTokenCreate",
+      "customerCreate",
+      "checkoutCreate"
+    ]
+  },
+  "exampleQueries": [
+    {
+      "name": "Get Products",
+      "query": "query GetProducts($first: Int!) {\n  products(first: $first) {\n    edges {\n      node {\n        id\n        title\n        handle\n        description\n        images(first: 1) {\n          edges {\n            node {\n              url\n              altText\n            }\n          }\n        }\n        variants(first: 5) {\n          edges {\n            node {\n              id\n              title\n              price {\n                amount\n                currencyCode\n              }\n              availableForSale\n            }\n          }\n        }\n      }\n    }\n  }\n}",
+      "variables": {
+        "first": 10
+      }
+    },
+    {
+      "name": "Get Product by Handle",
+      "query": "query GetProduct($handle: String!) {\n  productByHandle(handle: $handle) {\n    id\n    title\n    description\n    tags\n    vendor\n    productType\n    images(first: 5) {\n      edges {\n        node {\n          url\n          altText\n        }\n      }\n    }\n    variants(first: 10) {\n      edges {\n        node {\n          id\n          title\n          price {\n            amount\n            currencyCode\n          }\n          compareAtPrice {\n            amount\n            currencyCode\n          }\n          availableForSale\n          selectedOptions {\n            name\n            value\n          }\n        }\n      }\n    }\n  }\n}",
+      "variables": {
+        "handle": "example-product"
+      }
+    },
+    {
+      "name": "Get Collections",
+      "query": "query GetCollections($first: Int!) {\n  collections(first: $first) {\n    edges {\n      node {\n        id\n        title\n        handle\n        description\n        image {\n          url\n          altText\n        }\n        products(first: 3) {\n          edges {\n            node {\n              title\n              handle\n            }\n          }\n        }\n      }\n    }\n  }\n}",
+      "variables": {
+        "first": 5
+      }
+    }
+  ]
+}

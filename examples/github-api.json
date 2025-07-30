@@ -1,0 +1,40 @@
+{
+  "name": "GitHub GraphQL API Example",
+  "description": "Example configuration for GitHub's GraphQL API",
+  "configuration": {
+    "endpoint": "https://api.github.com/graphql",
+    "headers": {
+      "Authorization": "Bearer YOUR_GITHUB_TOKEN",
+      "User-Agent": "GraphQL-MCP/1.0.0"
+    },
+    "timeout": 30000,
+    "maxDepth": 10,
+    "maxComplexity": 100,
+    "disabledResolvers": []
+  },
+  "exampleQueries": [
+    {
+      "name": "Get Repository Information",
+      "query": "query GetRepository($owner: String!, $name: String!) {\n  repository(owner: $owner, name: $name) {\n    name\n    description\n    stargazerCount\n    forkCount\n    primaryLanguage {\n      name\n      color\n    }\n    issues(first: 5, states: OPEN) {\n      totalCount\n      nodes {\n        title\n        createdAt\n        author {\n          login\n        }\n      }\n    }\n  }\n}",
+      "variables": {
+        "owner": "facebook",
+        "name": "react"
+      }
+    },
+    {
+      "name": "Get User Profile",
+      "query": "query GetUser($login: String!) {\n  user(login: $login) {\n    name\n    bio\n    company\n    location\n    email\n    websiteUrl\n    followers {\n      totalCount\n    }\n    following {\n      totalCount\n    }\n    repositories(first: 5, orderBy: {field: STARGAZERS, direction: DESC}) {\n      nodes {\n        name\n        description\n        stargazerCount\n        primaryLanguage {\n          name\n        }\n      }\n    }\n  }\n}",
+      "variables": {
+        "login": "octocat"
+      }
+    },
+    {
+      "name": "Search Repositories",
+      "query": "query SearchRepositories($query: String!, $first: Int!) {\n  search(query: $query, type: REPOSITORY, first: $first) {\n    repositoryCount\n    nodes {\n      ... on Repository {\n        name\n        owner {\n          login\n        }\n        description\n        stargazerCount\n        forkCount\n        primaryLanguage {\n          name\n        }\n      }\n    }\n  }\n}",
+      "variables": {
+        "query": "language:TypeScript stars:>1000",
+        "first": 10
+      }
+    }
+  ]
+}

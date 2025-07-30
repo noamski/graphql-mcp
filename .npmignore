@@ -1,0 +1,28 @@
+# Source files (we publish the built dist/ instead)
+src/
+tsconfig.json
+jest.config.js
+.eslintrc.json
+
+# Tests
+**/*.test.ts
+**/*.spec.ts
+coverage/
+
+# Development files
+example.js
+.claude/
+
+# Git and IDE
+.git/
+.gitignore
+.vscode/
+.idea/
+
+# Logs
+*.log
+npm-debug.log*
+
+# Temporary
+tmp/
+temp/
