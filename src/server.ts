@@ -846,11 +846,9 @@ process.on('SIGTERM', async () => {
 });
 
 /**
- * Entry point - start the server if this file is executed directly
+ * Entry point - always start the server when this module is executed
  */
-if (import.meta.url === `file://${process.argv[1]}`) {
-  main().catch((error) => {
-    logToStderr('Failed to start server:', error);
-    process.exit(1);
-  });
-}
+main().catch((error) => {
+  console.error('Failed to start server:', error);
+  process.exit(1);
+});
