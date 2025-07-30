@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 /**
- * GraphQL MCP Server v1.0
+ * GraphQL MCP Server v1.1
  * 
  * A Model Context Protocol server that enables Large Language Models to
  * dynamically discover and interact with GraphQL APIs through schema
@@ -15,7 +15,7 @@
  * 
  * @author noamski
  * @license MIT
- * @version 1.0.0
+ * @version 1.1.0
  */
 
 import { Server } from '@modelcontextprotocol/sdk/server/index.js';
@@ -493,7 +493,7 @@ function validateQueryConstraints(query: string, config: z.infer<typeof Configur
 const server = new Server(
   {
     name: 'graphql-mcp',
-    version: '1.0.0',
+    version: '1.1.0',
   },
   {
     capabilities: {
@@ -799,7 +799,7 @@ async function handleGetStatus() {
  * Initializes the MCP server with stdio transport and sets up error handling
  */
 async function main(): Promise<void> {
-  logToStderr('GraphQL MCP Server v1.0.0 starting');
+  logToStderr('GraphQL MCP Server v1.1.0 starting');
   logToStderr('Protocol version: 2025-06-18');
   logToStderr('Transport: stdio');
   logToStderr('Capabilities: tools');
@@ -808,7 +808,7 @@ async function main(): Promise<void> {
   const transport = new StdioServerTransport();
   await server.connect(transport);
   
-  logToStderr('GraphQL MCP Server v1.0.0 ready');
+  logToStderr('GraphQL MCP Server v1.1.0 ready');
   
   // Auto-configure from environment AFTER connecting (non-blocking)
   const envConfig = loadEnvironmentConfig();
